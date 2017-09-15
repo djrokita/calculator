@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+	<meta charset="utf-8"/>
+	<title>Kalkulator</title>
+	
+	<link rel="stylesheet" href="style.css" type="text/css" />
+	
+
+</head>
+<body>
+		
+	<div id="container">
+		
+		<div id="device">
+			<div id="out">0</div>
+			<div id="in">
+				<div id="cyfry">
+				
+					
+					
+					<div style="clear: both"></div>
+					
+					<div class="klawisz" id="klaw7" onclick="zbierz(7)">7</div>
+					<div class="klawisz" id="klaw8" onclick="zbierz(8)">8</div>
+					<div class="klawisz" id="klaw9" onclick="zbierz(9)">9</div>
+					
+					<div style="clear: both"></div>
+					
+					<div class="klawisz" id="klaw4" onclick="zbierz(4)">4</div>
+					<div class="klawisz" id="klaw5"onclick="zbierz(5)">5</div>
+					<div class="klawisz" id="klaw6" onclick="zbierz(6)">6</div>
+					
+					<div style="clear: both"></div>
+					
+					<div class="klawisz" id="klaw1" onclick="zbierz(1)">1</div>
+					<div class="klawisz" id="klaw2" onclick="zbierz(2)">2</div>
+					<div class="klawisz" id="klaw3" onclick="zbierz(3)">3</div>
+				
+					<div style="clear: both"></div>
+				
+					
+					<div class="klawisz" id="kasuj" onclick="kasuj()" style="margin-bottom: 20px;">C</div>
+					<div class="klawisz" id="klaw0" onclick="zbierz(0)">0</div>
+					<div class="klawisz" id="kropka" onclick="zbierz(kropka)">.</div>
+					
+				</div>
+				<div id="znaki">
+				
+						
+						<div class="klawisz" id="potega" onclick="potega()">x&sup2 </div>
+						<div class="klawisz" id="pierwiastek" onclick="pierwiastek()">&radic; </div>
+					
+						<div style="clear:both;"></div>
+					
+						<div class="klawisz" id="mn" onclick="pomnoz()">x</div>
+						<div class="klawisz" id="dziel" onclick="podziel()" style="font-size: 48px; padding-top: 0; height: 65px;">&divide;</div>
+					
+						<div style="clear:both;"></div>
+					
+						<div class="klawisz" id="plus" onclick="dodaj()">+</div>
+						<div class="klawisz" id="minus" onclick="odejmij()">-</div>
+						
+						
+						<div style="clear:both;"></div>
+						
+						<div class="klawisz" id="procent" onclick="procent()">%</div>
+						<div class="klawisz" id="equal" onclick="rowna_sie()">=</div>
+				
+						<div style="clear:both;"></div>
+					
+					</div>
+				
+				</div>
+								
+			</div>
+		</div>
+	</div>
+	
+	<script src="script.js" type="text/javascript"></script>
+	
+	
+</body>
+</html>

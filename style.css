@@ -1,0 +1,91 @@
+body
+{
+	background-color: #222;
+	color: white;
+}
+
+.klawisz
+{
+	height: 57px;
+	width: 65px;
+	border: 3px solid #222;
+	float: left;
+	margin: 10px;
+	margin-left: 25px;
+	margin-right: 0;
+	border-radius: 10px;
+	text-align: center;
+	margin-top: 10px;
+	font-size: 40px;
+	padding-top: 8px;
+}
+
+.klawisz:hover
+{
+	border: 3px solid white;
+	cursor: pointer;
+}
+
+#container
+{
+	width: 900px;
+	/*background-color: #555;*/
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#device
+{
+	width: 600px;
+	height: 570px;
+	border: 3px solid #222;
+	margin-left: auto;
+	margin-right: auto;
+	border-radius: 30px;
+	background-color: #234567;
+	font-family: Monospace;
+	margin-top: 50px;
+}
+
+#out
+{
+	height: 100px;
+	width: 450px;
+	border: 3px solid #222;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10px;
+	margin-bottom: 20px;
+	border-radius: 20px;
+	font-size: 80px;
+	text-align: right;
+	padding: 5px;
+}
+
+#in
+{
+	width: 520px;
+	height: 380px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 40px;
+	padding: 5px;
+	/*border: 1px solid red;*/
+}
+
+#cyfry
+{
+	/*border: 1px solid yellow;*/
+	height: 378px;
+	width: 300px;
+	float: left;
+}
+
+#znaki
+{
+	/*border: 1px solid green;*/
+	height: 378px;
+	width: 210px;
+	float: left;
+	margin-left: 5px;
+}
