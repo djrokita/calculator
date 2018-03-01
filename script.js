@@ -1,7 +1,10 @@
+$(document).ready(function() {
 
 var cyfra = "";
 var num = 0;
-var ekran = document.getElementById("out");
+var ekran = $("#out");
+var dot = '.';
+
 
 var kwadrat = [];
 var pierw = [];
@@ -18,27 +21,73 @@ var wynik_iloraz = 0;
 var wynik_potega = 0;
 var wynik_proc = 0;
 var wynik_pierw = 0;
+var getNumber;
 
-
-function zbierz(numer) // zbieram cyfry z klawiszy w jedną liczbę
-{		
-	if (numer == kropka)
-	{
-	if (cyfra == "") cyfra += "0.";
-	else cyfra += ".";
+//klasa dla wprowadzonej liczby
+function Number(input) {
+	// var self = this;
+	this.result = input;
+	this.addition = function(value) {
+  	 return this.result + value;
 	}
-		else
-	{
-	cyfra +=  numer; // cyfra jako string, klejenie stringa
-	num = parseFloat(cyfra); //zamiana na liczbę zmiennoprzecinkową
-	ekran.innerHTML = num;
-	};
+	this.showResult = function() {
+		console.log(this.result);
+	}
+}
+// zbieram cyfry z klawiszy w jedną liczbę
+function zbierz(numer) {
+	if (numer == dot) {
+		if (cyfra == "") cyfra += "0.";
+		else cyfra += ".";
+	}
+		else {
+		cyfra +=  numer; // cyfra jako string, klejenie stringa
+		num = parseFloat(cyfra); //zamiana na liczbę zmiennoprzecinkową
+		ekran.text(num);
+		getNumber = new Number(num);
+		return getNumber;
+	}
 }
 
-function kasujEkran()
-{
+Number.prototype.collect = function(input) {
+	if (input == dot) {
+		if (cyfra == "") cyfra += "0.";
+		else cyfra += ".";
+	}
+		else {
+		cyfra +=  input; // cyfra jako string, klejenie stringa
+		num = parseFloat(cyfra); //zamiana na liczbę zmiennoprzecinkową
+		ekran.innerHTML = num;
+		return num;
+	}
+};
+
+function kasujEkran() {
 	ekran.innerHTML = 0;
 }
+
+var createNumberObject = function(param) {
+	return new Number(param);
+}
+
+//Buttons
+var additionButton = $('#plus');
+var equalButton = $('#equal');
+var buttonNumber = $('.number');
+
+buttonNumber.on('click', function(event) {
+	zbierz($(this).text());
+	console.log(getNumber.result);
+});
+
+/*
+additionButton.addEventListener('click', function() {
+	getNumber = createNumberObject(num);
+	kasujEkran();
+	getNumber.showResult();
+});
+*/
+// equalButton.addEventListener('click', dupa);
 
 function licz_dodaj(wart)
 {
@@ -103,7 +152,7 @@ function licz_kwadrat(wart)
 function licz_pierwiastek(wart)
 {
 	wynik_pierw = Math.sqrt(wart);
-	console.log(liczby);
+	// console.log(liczby);
 	for (i = 0; i < liczby.length; i ++)
 	{
 		wynik_pierw = Math.sqrt(liczby[i]);
@@ -123,7 +172,7 @@ function licz_proc()
 
 function licz_dalej()
 {
-	console.log(liczby);
+	// console.log(liczby);
 	cyfra = "";
 	result(wynik);
 }
@@ -132,10 +181,10 @@ function result(liczba) //wyświetla wynik na ekranie
 {
 	var wynik_ekran = liczba.toString();
 	if (wynik_ekran.length <= 10) ekran.innerHTML = liczba;
-	else 
+	else
 	{
 		if (liczba >= 10000000000)
-		{			
+		{
 			ekran.innerHTML = "e"+ wynik_ekran.substr(0,9);
 		}
 		else
@@ -442,17 +491,17 @@ function kasuj()
 function rowna_sie()
 {
 	switch (typ_dzialania)
-	{	
-		case 1: 
+	{
+		case 1:
 			licz_dodaj(num);
 			break;
-		case 2: 
+		case 2:
 			licz_mnoz(num);
 			break;
-		case 3: 
+		case 3:
 			licz_odejmij(num);
 			break;
-		case 4: 
+		case 4:
 			licz_dziel(num);
 			break;
 		case 5:
@@ -468,3 +517,4 @@ function rowna_sie()
 	console.log("typ działania to: " + typ_dzialania);
 	console.log("Zbiór liczby to: " + liczby);
 }
+});
