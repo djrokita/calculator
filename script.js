@@ -1,41 +1,43 @@
+// import dupa from './test.js';
+// var test = require('./test.js');
 $(document).ready(function() {
 
-var cyfra = "";
-var num = 0;
-var ekran = $("#out");
-var dot = '.';
+	var cyfra = "";
+	var num = 0;
+	var ekran = $("#out");
+	var dot = '.';
 
 
-var kwadrat = [];
-var pierw = [];
-var proc = [];
-var liczby= [];
+	var kwadrat = [];
+	var pierw = [];
+	var proc = [];
+	var liczby= [];
 
-var typ_dzialania = 0;
+	var typ_dzialania = 0;
 
-var wynik = 0;
-var wynik_suma = 0;
-var wynik_iloczyn = 1;
-var wynik_roznica = 0;
-var wynik_iloraz = 0;
-var wynik_potega = 0;
-var wynik_proc = 0;
-var wynik_pierw = 0;
-var getNumber;
+	var wynik = 0;
+	var wynik_suma = 0;
+	var wynik_iloczyn = 1;
+	var wynik_roznica = 0;
+	var wynik_iloraz = 0;
+	var wynik_potega = 0;
+	var wynik_proc = 0;
+	var wynik_pierw = 0;
+	var getNumber;
 
-//klasa dla wprowadzonej liczby
-function Number(input) {
-	// var self = this;
-	this.result = input;
-	this.addition = function(value) {
-  	 return this.result + value;
+	//klasa dla wprowadzonej liczby
+	function Number(input) {
+		// var self = this;
+		this.result = input;
+		this.addition = function(value) {
+			return this.result + value;
+		}
+		this.showResult = function() {
+			console.log('Number.showResult', this.result);
+		}
 	}
-	this.showResult = function() {
-		console.log(this.result);
-	}
-}
-// zbieram cyfry z klawiszy w jedną liczbę
-function zbierz(numer) {
+	// zbieram cyfry z klawiszy w jedną liczbę
+	function zbierz(numer) {
 	if (numer == dot) {
 		if (cyfra == "") cyfra += "0.";
 		else cyfra += ".";
@@ -45,11 +47,12 @@ function zbierz(numer) {
 		num = parseFloat(cyfra); //zamiana na liczbę zmiennoprzecinkową
 		ekran.text(num);
 		getNumber = new Number(num);
+		console.log('test', test);
 		return getNumber;
 	}
-}
+	}
 
-Number.prototype.collect = function(input) {
+	Number.prototype.collect = function(input) {
 	if (input == dot) {
 		if (cyfra == "") cyfra += "0.";
 		else cyfra += ".";
@@ -60,37 +63,42 @@ Number.prototype.collect = function(input) {
 		ekran.innerHTML = num;
 		return num;
 	}
-};
+	};
 
-function kasujEkran() {
+	function switchCalculation(symbol) {
+		switch ()
+	}
+
+
+	function kasujEkran() {
 	ekran.innerHTML = 0;
-}
+	}
 
-var createNumberObject = function(param) {
+	var createNumberObject = function(param) {
 	return new Number(param);
-}
+	}
 
-//Buttons
-var additionButton = $('#plus');
-var equalButton = $('#equal');
-var buttonNumber = $('.number');
+	//Buttons
+	var additionButton = $('#plus');
+	var equalButton = $('#equal');
+	var buttonNumber = $('.number');
 
-buttonNumber.on('click', function(event) {
-	zbierz($(this).text());
-	console.log(getNumber.result);
-});
+	buttonNumber.on('click', function(event) {
+		zbierz($(this).text());
+		getNumber.showResult();
+	});
 
-/*
-additionButton.addEventListener('click', function() {
+	/*
+	additionButton.addEventListener('click', function() {
 	getNumber = createNumberObject(num);
 	kasujEkran();
 	getNumber.showResult();
-});
-*/
-// equalButton.addEventListener('click', dupa);
+	});
+	*/
+	// equalButton.addEventListener('click', dupa);
 
-function licz_dodaj(wart)
-{
+	function licz_dodaj(wart)
+	{
 	liczby.push(wart);
 	wynik_suma = 0;
 	for (i = 0; i < liczby.length; i++)
@@ -99,10 +107,10 @@ function licz_dodaj(wart)
 	}
 	wynik = wynik_suma;
 	typ_dzialania = 1;
-}
+	}
 
-function licz_mnoz(wart)
-{
+	function licz_mnoz(wart)
+	{
 	liczby.push(wart);
 	wynik_iloczyn = 1;
 	for (i = 0; i < liczby.length; i++)
@@ -111,10 +119,10 @@ function licz_mnoz(wart)
 	}
 	wynik = wynik_iloczyn;
 	typ_dzialania = 2;
-}
+	}
 
-function licz_odejmij(wart)
-{
+	function licz_odejmij(wart)
+	{
 	liczby.push(wart);
 	wynik_roznica = 2 * liczby[0];
 	for (i = 0; i < liczby.length; i ++)
@@ -123,10 +131,10 @@ function licz_odejmij(wart)
 	}
 	wynik = wynik_roznica;
 	typ_dzialania = 3;
-}
+	}
 
-function licz_dziel(wart)
-{
+	function licz_dziel(wart)
+	{
 	liczby.push(wart);
 	wynik_iloraz = liczby[0]  * liczby[0];
 	for (i = 0; i < liczby.length; i ++)
@@ -135,10 +143,10 @@ function licz_dziel(wart)
 	}
 	wynik = wynik_iloraz;
 	typ_dzialania = 4;
-}
+	}
 
-function licz_kwadrat(wart)
-{
+	function licz_kwadrat(wart)
+	{
 	wynik_potega = Math.pow(wart, 2);
 	for (i = 0; i < liczby.length; i ++)
 	{
@@ -147,10 +155,10 @@ function licz_kwadrat(wart)
 	wynik = wynik_potega;
 	liczby.push(wynik);
 	typ_dzialania = 5;
-}
+	}
 
-function licz_pierwiastek(wart)
-{
+	function licz_pierwiastek(wart)
+	{
 	wynik_pierw = Math.sqrt(wart);
 	// console.log(liczby);
 	for (i = 0; i < liczby.length; i ++)
@@ -160,25 +168,25 @@ function licz_pierwiastek(wart)
 	wynik = wynik_pierw;
 	liczby.push(wynik);
 	typ_dzialania = 6;
-}
+	}
 
-function licz_proc()
-{
+	function licz_proc()
+	{
 	pomnoz();
 	wynik = wynik * 0.01;
 	liczby.push(wynik);
 	typ_dzialania = 7;
-}
+	}
 
-function licz_dalej()
-{
+	function licz_dalej()
+	{
 	// console.log(liczby);
 	cyfra = "";
 	result(wynik);
-}
+	}
 
-function result(liczba) //wyświetla wynik na ekranie
-{
+	function result(liczba) //wyświetla wynik na ekranie
+	{
 	var wynik_ekran = liczba.toString();
 	if (wynik_ekran.length <= 10) ekran.innerHTML = liczba;
 	else
@@ -198,10 +206,10 @@ function result(liczba) //wyświetla wynik na ekranie
 		}
 	}
 	//wynik = liczba;
-}
+	}
 
-function dodaj()
-{
+	function dodaj()
+	{
 	switch(typ_dzialania)
 	{
 		case 2:
@@ -244,10 +252,10 @@ function dodaj()
 	//typ_dzialania = 0;
 	licz_dalej();
 	console.log("typ działania to: " + typ_dzialania);
-}
+	}
 
-function pomnoz()
-{
+	function pomnoz()
+	{
 	switch(typ_dzialania)
 	{
 		case 1:
@@ -288,10 +296,10 @@ function pomnoz()
 			break;
 	}
 	licz_dalej();
-}
+	}
 
-function odejmij()
-{
+	function odejmij()
+	{
 	switch(typ_dzialania)
 	{
 		case 1:
@@ -332,10 +340,10 @@ function odejmij()
 			break;
 	}
 	licz_dalej();
-}
+	}
 
-function podziel()
-{
+	function podziel()
+	{
 	switch(typ_dzialania)
 	{
 		case 1:
@@ -376,10 +384,10 @@ function podziel()
 			break;
 	}
 	licz_dalej();
-}
+	}
 
-function potega()
-{
+	function potega()
+	{
 	switch(typ_dzialania)
 	{
 		case 1:
@@ -423,10 +431,10 @@ function potega()
 			break;
 	}
 	licz_dalej();
-}
+	}
 
-function pierwiastek()
-{
+	function pierwiastek()
+	{
 	switch(typ_dzialania)
 	{
 		case 1:
@@ -471,25 +479,25 @@ function pierwiastek()
 	}
 	//licz_pierwiastek(num);
 	licz_dalej();
-}
+	}
 
-function procent()
-{
+	function procent()
+	{
 	licz_proc();
 	licz_dalej();
 	console.log("To działa!!!");
-}
+	}
 
-function kasuj()
-{
+	function kasuj()
+	{
 	cyfra = "";
 	result(0);
 	liczby = [];
 	typ_dzialania = 0;
-}
+	}
 
-function rowna_sie()
-{
+	function rowna_sie()
+	{
 	switch (typ_dzialania)
 	{
 		case 1:
@@ -516,5 +524,5 @@ function rowna_sie()
 	licz_dalej();
 	console.log("typ działania to: " + typ_dzialania);
 	console.log("Zbiór liczby to: " + liczby);
-}
+	}
 });
