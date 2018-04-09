@@ -1,12 +1,13 @@
 // import dupa from './test.js';
 // var test = require('./test.js');
+var message = require('./test');
+alert(message);
 $(document).ready(function() {
 
 	var cyfra = "";
 	var num = 0;
 	var ekran = $("#out");
 	var dot = '.';
-
 
 	var kwadrat = [];
 	var pierw = [];
@@ -66,7 +67,7 @@ $(document).ready(function() {
 	};
 
 	function switchCalculation(symbol) {
-		switch ()
+		// switch ()
 	}
 
 
