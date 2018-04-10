@@ -1,7 +1,3 @@
-// import dupa from './test.js';
-// var test = require('./test.js');
-var message = require('./test');
-alert(message);
 $(document).ready(function() {
 
 	var cyfra = "";
