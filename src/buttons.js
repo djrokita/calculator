@@ -1,11 +1,11 @@
 var $ = require('jquery');
 
-var additionButton = $('#plus');
-var equalButton = $('#equal');
-var buttonNumber = $('.number');
-
+// var additionButton = $('#plus');
+// var equalButton = $('#equal');
+var numberButton = $('.number');
+var functionButton = $('.func');
+    
 module.exports = {
-    additionButton: additionButton,
-    equalButton: equalButton,
-    buttonNumber: buttonNumber
+    numberButton: numberButton,
+    functionButton: functionButton
 }

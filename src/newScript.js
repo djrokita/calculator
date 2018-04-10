@@ -1,7 +1,8 @@
 var $ = require('jquery');
 var btn = require('./buttons');
 var collect = require('./collect');
-console.log(collect);
+// var Number = require('./Number');
+var Device = require('./Device');
 
 $(document).ready(function() {
 
@@ -9,17 +10,24 @@ $(document).ready(function() {
 		// switch ()
 	}
 
-	function kasujEkran() {
-	ekran.innerHTML = 0;
+	var putDeviceOn = function() {
+		return new Device();
 	}
 
-	var createNumberObject = function(param) {
-	return new Number(param);
-	}
-
+	var deviceOn = putDeviceOn();
 	//Buttons
-	btn.buttonNumber.on('click', function(event) {
-		collect.collect($(this).text());
-		collect.getNumber.showResult();
+
+	btn.numberButton.on('click', function() {
+		deviceOn.collect($(this).text());
+		deviceOn.display();
+		console.log('device', deviceOn);
+	});
+
+	btn.functionButton.on('click', function() {
+		switch($(this).text()) {
+			case 'C':
+				deviceOn.clearDisplay();
+				break;
+		}
 	});
 });
