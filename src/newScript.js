@@ -1,6 +1,5 @@
 var $ = require('jquery');
 var btn = require('./buttons');
-var collect = require('./collect');
 // var Number = require('./Number');
 var Device = require('./Device');
 

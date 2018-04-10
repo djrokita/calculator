@@ -1,18 +1,18 @@
 var $ = require('jquery');
 var digit = "";
-// var number = 0;
 var display = $("#out");
 var dot = '.';
 
-function Number() {
+function Device() {
+    // var self = this;
+    // this.number = collect();
     this.number = 0;
     this.showResult = function() {
-        console.log('Number.showResult', this.result);
+        console.log('Device.showResult', this.result);
     }
 }
 
-Number.prototype.collect = function(input) {
-    console.log('dupa');
+Device.prototype.collect = function(input) {
     if (input == dot) {
         if (digit == "") digit += "0.";
         else digit += ".";
@@ -24,8 +24,12 @@ Number.prototype.collect = function(input) {
     }
 };
 
-Number.prototype.display = function() {
+Device.prototype.display = function() {
     display.text(this.number);
 };
 
-module.exports = Number;
+Device.prototype.clearDisplay = function() {
+    display.text(0);
+};
+
+module.exports = Device;
