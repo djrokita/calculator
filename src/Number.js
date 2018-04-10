@@ -1,31 +1,30 @@
 var $ = require('jquery');
 var digit = "";
-// var number = 0;
 var display = $("#out");
 var dot = '.';
 
-function Number() {
-    this.number = 0;
-    this.showResult = function() {
-        console.log('Number.showResult', this.result);
-    }
+function Number(input) {
+    this.firstValue = input;
+    this.secondValue = 0;
+    this.result = 0;
 }
 
 Number.prototype.collect = function(input) {
-    console.log('dupa');
     if (input == dot) {
         if (digit == "") digit += "0.";
         else digit += ".";
     }
     else {
         digit +=  input; // digit jako string, klejenie stringa
-        this.number = parseFloat(digit); //zamiana na liczbę zmiennoprzecinkową
-        return this.number;
+        this.secondValue = parseFloat(digit); //zamiana na liczbę zmiennoprzecinkową
+        return this.secondValue;
     }
 };
 
-Number.prototype.display = function() {
-    display.text(this.number);
+Number.prototype.add = function() {
+    this.result = this.firstValue + this.secondValue;
+    display.text(this.result);
+    // return this.firstValue + this.secondValue;
 };
 
 module.exports = Number;

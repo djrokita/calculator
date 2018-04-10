@@ -4,8 +4,6 @@ var display = $("#out");
 var dot = '.';
 
 function Device() {
-    // var self = this;
-    // this.number = collect();
     this.number = 0;
     this.showResult = function() {
         console.log('Device.showResult', this.result);

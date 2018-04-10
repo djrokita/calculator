@@ -2,6 +2,7 @@ var $ = require('jquery');
 var btn = require('./buttons');
 // var Number = require('./Number');
 var Device = require('./Device');
+var counting;
 
 $(document).ready(function() {
 
@@ -27,6 +28,11 @@ $(document).ready(function() {
 			case 'C':
 				deviceOn.clearDisplay();
 				break;
+			case '+':
+				counting = new Number(102);
+				console.log('firstValue', counting.firstValue);
+				// counting.collect();
+				// counting.add();
 		}
 	});
 });
