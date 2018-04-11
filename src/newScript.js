@@ -11,30 +11,29 @@ $(document).ready(function() {
 	}
 
 	var putDeviceOn = function() {
+		counting = new Operations();
 		return new Device();
 	}
 
 	var deviceOn = putDeviceOn();
 	//Buttons
 
-	btn.numberButton.on('click', function() {
+	btn.numberButton.on('click', function() {			
 		deviceOn.collect($(this).text());
 		deviceOn.display();
-		console.log('device', deviceOn);
 	});
-
+	
 	btn.functionButton.on('click', function() {
 		switch($(this).text()) {
 			case 'C':
-				deviceOn.clearDisplay();
-				break;
-			case '+':
-				counting = new Operations(deviceOn.number);
-				console.log('firstValue', counting.firstValue);
 				deviceOn.clearMemory();
-				console.log('deviceOn.number', deviceOn.number);
-				// counting.collect();
-				// counting.add();
+				deviceOn.clearDisplay();
+			break;
+			case '+':
+				if(deviceOn.number) counting.add(deviceOn.number);
+				else counting.addRepeat();
+				deviceOn.clearMemory();
+				break;
 		}
 	});
 });

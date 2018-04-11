@@ -1,30 +1,42 @@
 var $ = require('jquery');
-var digit = "";
 var display = $("#out");
 var dot = '.';
 
-function Operations(input) {
-    this.firstValue = input;
-    this.secondValue = 0;
+function Operations() {
+    this.value = 0;
+    this.lastValue = 0;
     this.result = 0;
+    this.digit = "";
 }
-
+/*
 Operations.prototype.collect = function(value) {
     if (value == dot) {
-        if (digit == "") digit += "0.";
-        else digit += ".";
+        if (this.digit == "") this.digit += "0.";
+        else this.digit += ".";
     }
     else {
-        digit +=  value; // digit jako string, klejenie stringa
-        this.secondValue = parseFloat(digit); //zamiana na liczbę zmiennoprzecinkową
+        this.digit +=  value; // digit jako string, klejenie stringa
+        this.secondValue = parseFloat(this.digit); //zamiana na liczbę zmiennoprzecinkową
+        console.log('collect.secondValue', this.secondValue);
         return this.secondValue;
     }
 };
-
-Operations.prototype.add = function() {
-    this.result = this.firstValue + this.secondValue;
-    display.text(this.result);
-    // return this.firstValue + this.secondValue;
+*/
+Operations.prototype.display = function() {
+    display.text(this.secondValue);
 };
+
+Operations.prototype.add = function(input) {
+    this.lastValue = input;
+    this.value += input;
+    display.text(this.value);
+};
+
+Operations.prototype.addRepeat = function() {
+    this.value += this.lastValue;
+    display.text(this.value);    
+}
+
+// Napisz metodę do kasowania pamięci Operations!!
 
 module.exports = Operations;

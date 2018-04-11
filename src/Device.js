@@ -5,9 +5,6 @@ var dot = '.';
 
 function Device() {
     this.number = 0;
-    this.showResult = function() {
-        console.log('Device.showResult', this.result);
-    }
 }
 
 Device.prototype.collect = function(input) {
@@ -31,8 +28,8 @@ Device.prototype.clearDisplay = function() {
 };
 
 Device.prototype.clearMemory = function() {
+    digit = 0;    
     this.number = 0;
-    display.text(this.number);
 }
 
 module.exports = Device;
