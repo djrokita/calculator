@@ -3,28 +3,28 @@ var digit = "";
 var display = $("#out");
 var dot = '.';
 
-function Number(input) {
+function Operations(input) {
     this.firstValue = input;
     this.secondValue = 0;
     this.result = 0;
 }
 
-Number.prototype.collect = function(input) {
-    if (input == dot) {
+Operations.prototype.collect = function(value) {
+    if (value == dot) {
         if (digit == "") digit += "0.";
         else digit += ".";
     }
     else {
-        digit +=  input; // digit jako string, klejenie stringa
+        digit +=  value; // digit jako string, klejenie stringa
         this.secondValue = parseFloat(digit); //zamiana na liczbę zmiennoprzecinkową
         return this.secondValue;
     }
 };
 
-Number.prototype.add = function() {
+Operations.prototype.add = function() {
     this.result = this.firstValue + this.secondValue;
     display.text(this.result);
     // return this.firstValue + this.secondValue;
 };
 
-module.exports = Number;
+module.exports = Operations;

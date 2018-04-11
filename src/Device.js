@@ -30,4 +30,9 @@ Device.prototype.clearDisplay = function() {
     display.text(0);
 };
 
+Device.prototype.clearMemory = function() {
+    this.number = 0;
+    display.text(this.number);
+}
+
 module.exports = Device;

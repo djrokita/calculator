@@ -1,6 +1,6 @@
 var $ = require('jquery');
 var btn = require('./buttons');
-// var Number = require('./Number');
+var Operations = require('./Operations');
 var Device = require('./Device');
 var counting;
 
@@ -29,8 +29,10 @@ $(document).ready(function() {
 				deviceOn.clearDisplay();
 				break;
 			case '+':
-				counting = new Number(102);
+				counting = new Operations(deviceOn.number);
 				console.log('firstValue', counting.firstValue);
+				deviceOn.clearMemory();
+				console.log('deviceOn.number', deviceOn.number);
 				// counting.collect();
 				// counting.add();
 		}
