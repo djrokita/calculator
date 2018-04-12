@@ -21,6 +21,7 @@ $(document).ready(function() {
 	btn.numberButton.on('click', function() {			
 		deviceOn.collect($(this).text());
 		deviceOn.display();
+		counting.setStartingValues(deviceOn.number);
 	});
 	
 	btn.functionButton.on('click', function() {
@@ -31,18 +32,16 @@ $(document).ready(function() {
 				deviceOn.clearDisplay();
 			break;
 			case '+':
-				if(deviceOn.number) counting.add(deviceOn.number);
-				else counting.addRepeat();
+				counting.add(deviceOn.number);	
 				deviceOn.clearMemory();
-				break;
+			break;
 			case 'x':
-				if(deviceOn.number) counting.multiply(deviceOn.number);	
-				else counting.multiplyRepeat();
+				counting.multiply(deviceOn.number);	
 				deviceOn.clearMemory();			
 				break;
 			case '-':
-				if(deviceOn.number) counting.subtrack(deviceOn.number);
-				// else counting.addRepeat();
+				deviceOn.isUsedFunction = true;
+				counting.subtrack(deviceOn.number);
 				deviceOn.clearMemory();
 				break;				
 		}

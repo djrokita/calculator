@@ -6,8 +6,9 @@ function Operations() {
     this.value = 0;
     this.lastValue = 0;
     this.multiplyResult = 1;
-    this.result = 0;
+    this.subtrackResult = 0;
     this.digit = "";
+    this.isUsedFunction = false;    
 }
 /*
 Operations.prototype.collect = function(value) {
@@ -28,33 +29,40 @@ Operations.prototype.display = function() {
 };
 
 Operations.prototype.add = function(input) {
-    this.lastValue = input;
-    this.value += input;
+    if(input) {
+        this.lastValue = input;
+        this.value += input;
+    }
+    else {
+        this.value += this.lastValue;
+        display.text(this.value);    
+    }
     display.text(this.value);
 };
 
-Operations.prototype.addRepeat = function() {
-    this.value += this.lastValue;
-    display.text(this.value);    
+Operations.prototype.multiply = function(input) {
+    if(input) {
+        this.lastValue = input;
+        this.multiplyResult *= input;
+    }
+    else {
+        this.multiplyResult *= this.lastValue;
+    }
+    display.text(this.multiplyResult);
 };
 
-Operations.prototype.multiply = function(input) {
-    this.lastValue = input;
-    this.multiplyResult *= input;
-    display.text(this.multiplyResult);
-}
-
-Operations.prototype.multiplyRepeat = function() {
-    this.multiplyResult *= this.lastValue;
-    display.text(this.multiplyResult);
-}
+Operations.prototype.setStartingValues = function(input) {
+    if(!this.isUsedFunction) this.subtrackResult = 2 * input;
+};
 
 Operations.prototype.subtrack = function(input) {
-    // this.lastValue = input;
-    this.value = 2 * input;
-    this.result -= input;
-    display.text(this.result);
-    console.log(this.value);
+    this.isUsedFunction = true;
+    if(input) {
+        this.lastValue = input;
+        this.subtrackResult -= input;
+    }
+    else this.subtrackResult -= this.lastValue;
+    display.text(this.subtrackResult);
 };
 
 module.exports = Operations;
