@@ -5,6 +5,7 @@ var dot = '.';
 function Operations() {
     this.value = 0;
     this.lastValue = 0;
+    this.multiplyResult = 1;
     this.result = 0;
     this.digit = "";
 }
@@ -35,8 +36,25 @@ Operations.prototype.add = function(input) {
 Operations.prototype.addRepeat = function() {
     this.value += this.lastValue;
     display.text(this.value);    
+};
+
+Operations.prototype.multiply = function(input) {
+    this.lastValue = input;
+    this.multiplyResult *= input;
+    display.text(this.multiplyResult);
 }
 
-// Napisz metodę do kasowania pamięci Operations!!
+Operations.prototype.multiplyRepeat = function() {
+    this.multiplyResult *= this.lastValue;
+    display.text(this.multiplyResult);
+}
+
+Operations.prototype.subtrack = function(input) {
+    // this.lastValue = input;
+    this.value = 2 * input;
+    this.result -= input;
+    display.text(this.result);
+    console.log(this.value);
+};
 
 module.exports = Operations;

@@ -26,6 +26,7 @@ $(document).ready(function() {
 	btn.functionButton.on('click', function() {
 		switch($(this).text()) {
 			case 'C':
+				counting = new Operations();
 				deviceOn.clearMemory();
 				deviceOn.clearDisplay();
 			break;
@@ -34,6 +35,16 @@ $(document).ready(function() {
 				else counting.addRepeat();
 				deviceOn.clearMemory();
 				break;
+			case 'x':
+				if(deviceOn.number) counting.multiply(deviceOn.number);	
+				else counting.multiplyRepeat();
+				deviceOn.clearMemory();			
+				break;
+			case '-':
+				if(deviceOn.number) counting.subtrack(deviceOn.number);
+				// else counting.addRepeat();
+				deviceOn.clearMemory();
+				break;				
 		}
 	});
 });
