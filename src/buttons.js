@@ -7,5 +7,5 @@ var functionButton = $('.func');
     
 module.exports = {
     numberButton: numberButton,
-    functionButton: functionButton
+    functionButton: functionButton,
 }

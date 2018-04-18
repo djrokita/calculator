@@ -25,16 +25,17 @@ $(document).ready(function() {
 	});
 	
 	btn.functionButton.on('click', function() {
+		counting.display();
 		switch($(this).text()) {
 			case 'C':
 				counting = new Operations();
 				deviceOn.clearMemory();
 				deviceOn.clearDisplay();
-			break;
+				break;
 			case '+':
 				counting.add(deviceOn.number);	
 				deviceOn.clearMemory();
-			break;
+				break;
 			case 'x':
 				counting.multiply(deviceOn.number);	
 				deviceOn.clearMemory();			
@@ -45,5 +46,13 @@ $(document).ready(function() {
 				deviceOn.clearMemory();
 				break;				
 		}
+		switch($(this).attr('id')) {
+			case 'divide':
+				console.log('udało się!');
+				deviceOn.isUsedFunction = true;
+				counting.divide(deviceOn.number);				
+				break;
+		}
 	});
+
 });

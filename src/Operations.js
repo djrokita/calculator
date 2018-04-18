@@ -7,8 +7,10 @@ function Operations() {
     this.lastValue = 0;
     this.multiplyResult = 1;
     this.subtrackResult = 0;
+    this.divideResult = 0;
     this.digit = "";
-    this.isUsedFunction = false;    
+    this.isUsedFunction = false;
+    this.lastResult = 0;    
 }
 /*
 Operations.prototype.collect = function(value) {
@@ -25,7 +27,7 @@ Operations.prototype.collect = function(value) {
 };
 */
 Operations.prototype.display = function() {
-    display.text(this.secondValue);
+    display.text(this.lastResult);
 };
 
 Operations.prototype.add = function(input) {
@@ -37,6 +39,7 @@ Operations.prototype.add = function(input) {
         this.value += this.lastValue;
         display.text(this.value);    
     }
+    this.lastResult = this.value;
     display.text(this.value);
 };
 
@@ -48,11 +51,15 @@ Operations.prototype.multiply = function(input) {
     else {
         this.multiplyResult *= this.lastValue;
     }
+    this.lastResult = this.multiplyResult;
     display.text(this.multiplyResult);
 };
 
 Operations.prototype.setStartingValues = function(input) {
-    if(!this.isUsedFunction) this.subtrackResult = 2 * input;
+    if(!this.isUsedFunction) {
+        this.subtrackResult = 2 * input;
+        this.divideResult = input * input;
+    }
 };
 
 Operations.prototype.subtrack = function(input) {
@@ -62,7 +69,13 @@ Operations.prototype.subtrack = function(input) {
         this.subtrackResult -= input;
     }
     else this.subtrackResult -= this.lastValue;
+    this.lastResult = this.subtrackResult;
     display.text(this.subtrackResult);
 };
+
+Operations.prototype.divide = function(input) {
+    this.divideResult /= input;
+    display.text(this.divideResult);
+}; 
 
 module.exports = Operations;
