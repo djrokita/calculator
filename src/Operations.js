@@ -7,6 +7,7 @@ function Operations() {
     this.lastValue = 0;
     this.multiplyResult = 1;
     this.subtrackResult = 0;
+    this.squareResult = 1;
     this.divideResult = 1;
     this.digit = "";
     this.isUsedFunction = false;
@@ -88,5 +89,16 @@ Operations.prototype.divide = function(input) {
     }
     display.text(this.divideResult);
 }; 
+
+Operations.prototype.square = function(input) {
+    if(input) {
+        this.lastValue = input;
+        this.squareResult = this.lastValue * this.lastValue;
+    }
+    else {
+        this.squareResult *= this.squareResult
+    }
+    display.text(this.squareResult);   
+}
 
 module.exports = Operations;

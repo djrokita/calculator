@@ -52,6 +52,12 @@ $(document).ready(function() {
 				counting.divide(deviceOn.number);				
 				deviceOn.clearMemory();				
 				break;
+			case 'square':
+				console.log('dupa');
+				deviceOn.isUsedFunction = true;
+				counting.square(deviceOn.number);				
+				deviceOn.clearMemory();								
+				break;
 		}
 	});
 
