@@ -21,6 +21,12 @@ body
 	padding: 3%;
 }
 
+.klawisz:hover {
+	cursor: pointer;
+	border: 3px solid #aaa;
+	color: #aaa;	
+}
+
 .right-space {
 	margin-right: 4%;
 }
