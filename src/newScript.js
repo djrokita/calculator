@@ -44,13 +44,13 @@ $(document).ready(function() {
 				deviceOn.isUsedFunction = true;
 				counting.subtrack(deviceOn.number);
 				deviceOn.clearMemory();
-				break;				
+				break;			
 		}
 		switch($(this).attr('id')) {
 			case 'divide':
-				console.log('udało się!');
 				deviceOn.isUsedFunction = true;
 				counting.divide(deviceOn.number);				
+				deviceOn.clearMemory();				
 				break;
 		}
 	});

@@ -7,7 +7,7 @@ function Operations() {
     this.lastValue = 0;
     this.multiplyResult = 1;
     this.subtrackResult = 0;
-    this.divideResult = 0;
+    this.divideResult = 1;
     this.digit = "";
     this.isUsedFunction = false;
     this.lastResult = 0;    
@@ -46,7 +46,7 @@ Operations.prototype.add = function(input) {
 Operations.prototype.multiply = function(input) {
     if(input) {
         this.lastValue = input;
-        this.multiplyResult *= input;
+        this.multiplyResult *= this.lastValue;
     }
     else {
         this.multiplyResult *= this.lastValue;
@@ -58,7 +58,6 @@ Operations.prototype.multiply = function(input) {
 Operations.prototype.setStartingValues = function(input) {
     if(!this.isUsedFunction) {
         this.subtrackResult = 2 * input;
-        this.divideResult = input * input;
     }
 };
 
@@ -74,7 +73,19 @@ Operations.prototype.subtrack = function(input) {
 };
 
 Operations.prototype.divide = function(input) {
-    this.divideResult /= input;
+    if(input) {
+        if(this.lastValue == 0) {
+            this.divideResult = input * input;
+        }
+        else {
+            this.divideResult = this.lastValue; 
+        }
+        this.divideResult /= input; 
+        this.lastValue = input;
+    }
+    else {
+        this.divideResult /= this.lastValue;
+    }
     display.text(this.divideResult);
 }; 
 
