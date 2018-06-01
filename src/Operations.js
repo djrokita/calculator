@@ -9,6 +9,7 @@ function Operations() {
     this.subtrackResult = 0;
     this.squareResult = 1;
     this.divideResult = 1;
+    this.rootResult = 1;
     this.digit = "";
     this.isUsedFunction = false;
     this.lastResult = 0;    
@@ -92,13 +93,23 @@ Operations.prototype.divide = function(input) {
 
 Operations.prototype.square = function(input) {
     if(input) {
-        this.lastValue = input;
         this.squareResult = this.lastValue * this.lastValue;
     }
     else {
         this.squareResult *= this.squareResult
     }
     display.text(this.squareResult);   
+}
+
+Operations.prototype.root = function(input) {
+    console.log('input', typeof input);
+    if(input) {
+        this.rootResult = Math.sqrt(input);
+    }
+    else {
+        this.rootResult = Math.sqrt(this.rootResult);
+    }
+    display.text(this.rootResult);
 }
 
 module.exports = Operations;

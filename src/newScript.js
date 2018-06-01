@@ -53,11 +53,17 @@ $(document).ready(function() {
 				deviceOn.clearMemory();				
 				break;
 			case 'square':
-				console.log('dupa');
 				deviceOn.isUsedFunction = true;
 				counting.square(deviceOn.number);				
 				deviceOn.clearMemory();								
 				break;
+			case 'root':
+				console.log('dupa');
+				deviceOn.isUsedFunction = true;
+				counting.root(deviceOn.number);				
+				deviceOn.clearMemory();								
+				break;
+			
 		}
 	});
 
