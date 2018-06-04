@@ -5,6 +5,7 @@ var dot = '.';
 
 function Device() {
     this.number = 0;
+    this.functionInUse = 'none';
 }
 
 Device.prototype.collect = function(input) {

@@ -14,20 +14,7 @@ function Operations() {
     this.isUsedFunction = false;
     this.lastResult = 0;    
 }
-/*
-Operations.prototype.collect = function(value) {
-    if (value == dot) {
-        if (this.digit == "") this.digit += "0.";
-        else this.digit += ".";
-    }
-    else {
-        this.digit +=  value; // digit jako string, klejenie stringa
-        this.secondValue = parseFloat(this.digit); //zamiana na liczbę zmiennoprzecinkową
-        console.log('collect.secondValue', this.secondValue);
-        return this.secondValue;
-    }
-};
-*/
+
 Operations.prototype.display = function() {
     display.text(this.lastResult);
 };
@@ -39,7 +26,6 @@ Operations.prototype.add = function(input) {
     }
     else {
         this.value += this.lastValue;
-        display.text(this.value);    
     }
     this.lastResult = this.value;
     display.text(this.value);
@@ -99,7 +85,7 @@ Operations.prototype.square = function(input) {
         this.squareResult *= this.squareResult
     }
     display.text(this.squareResult);   
-}
+};
 
 Operations.prototype.root = function(input) {
     console.log('input', typeof input);
@@ -110,6 +96,23 @@ Operations.prototype.root = function(input) {
         this.rootResult = Math.sqrt(this.rootResult);
     }
     display.text(this.rootResult);
-}
+};
+
+Operations.prototype.equal = function(input, action) {
+    console.log('this.multiplyResult', this.multiplyResult);
+    console.log('input', input);
+    this.lastValue = input;
+    console.log('this.lastValue', this.lastValue);
+    switch(action) {
+        case 'addition':
+            this.value += this.lastValue;
+            display.text(this.value);
+            break;
+        case 'multiplication':
+            this.multiplyResult *= this.lastValue;
+            display.text(this.multiplyResult);
+            break;
+    }
+};
 
 module.exports = Operations;

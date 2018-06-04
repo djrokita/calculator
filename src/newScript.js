@@ -33,21 +33,28 @@ $(document).ready(function() {
 				deviceOn.clearDisplay();
 				break;
 			case '+':
+				deviceOn.functionInUse = 'addition';
 				counting.add(deviceOn.number);	
 				deviceOn.clearMemory();
 				break;
 			case 'x':
+				deviceOn.functionInUse = 'multiplication';	
 				counting.multiply(deviceOn.number);	
 				deviceOn.clearMemory();			
 				break;
 			case '-':
+				deviceOn.functionInUse = 'substruction';	
 				deviceOn.isUsedFunction = true;
 				counting.subtrack(deviceOn.number);
 				deviceOn.clearMemory();
-				break;			
+				break;	
+			case '=':
+				counting.equal(deviceOn.number, deviceOn.functionInUse);
+				break;		
 		}
 		switch($(this).attr('id')) {
 			case 'divide':
+				deviceOn.functionInUse = 'division';	
 				deviceOn.isUsedFunction = true;
 				counting.divide(deviceOn.number);				
 				deviceOn.clearMemory();				
@@ -58,13 +65,11 @@ $(document).ready(function() {
 				deviceOn.clearMemory();								
 				break;
 			case 'root':
-				console.log('dupa');
 				deviceOn.isUsedFunction = true;
 				counting.root(deviceOn.number);				
 				deviceOn.clearMemory();								
 				break;
-			
 		}
+		console.log(deviceOn.functionInUse);
 	});
-
 });
