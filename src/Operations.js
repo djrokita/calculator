@@ -11,8 +11,8 @@ function Operations() {
     this.divideResult = 1;
     this.rootResult = 1;
     this.digit = "";
-    this.isUsedFunction = false;
-    this.lastResult = 0;    
+    this.lastResult = 0;
+    this.isUsedFunction = false;    
 }
 
 Operations.prototype.display = function() {
@@ -22,13 +22,13 @@ Operations.prototype.display = function() {
 Operations.prototype.add = function(input) {
     if(input) {
         this.lastValue = input;
-        this.value += input;
+        this.lastResult += input;
     }
     else {
-        this.value += this.lastValue;
+        this.lastResult += this.lastValue;
     }
-    this.lastResult = this.value;
-    display.text(this.value);
+    // this.lastResult = this.value;
+    display.text(this.lastResult);
 };
 
 Operations.prototype.multiply = function(input) {
@@ -40,24 +40,26 @@ Operations.prototype.multiply = function(input) {
         this.multiplyResult *= this.lastValue;
     }
     this.lastResult = this.multiplyResult;
-    display.text(this.multiplyResult);
+    display.text(this.lastResult);
 };
 
 Operations.prototype.setStartingValues = function(input) {
     if(!this.isUsedFunction) {
         this.subtrackResult = 2 * input;
     }
-};
+}
 
 Operations.prototype.subtrack = function(input) {
-    this.isUsedFunction = true;
     if(input) {
         this.lastValue = input;
         this.subtrackResult -= input;
     }
-    else this.subtrackResult -= this.lastValue;
+    else {
+        this.subtrackResult -= this.lastValue;
+    }
+    console.log('sub', this.subtrackResult);
     this.lastResult = this.subtrackResult;
-    display.text(this.subtrackResult);
+    display.text(this.lastResult);
 };
 
 Operations.prototype.divide = function(input) {
@@ -74,43 +76,53 @@ Operations.prototype.divide = function(input) {
     else {
         this.divideResult /= this.lastValue;
     }
-    display.text(this.divideResult);
+    this.lastResult = this.divideResult;    
+    display.text(this.lastResult);
 }; 
 
 Operations.prototype.square = function(input) {
     if(input) {
+        this.lastValue = input;
         this.squareResult = this.lastValue * this.lastValue;
+        console.log('kwadrat', this.squareResult);
     }
     else {
         this.squareResult *= this.squareResult
     }
-    display.text(this.squareResult);   
+    this.lastResult = this.squareResult;
+    display.text(this.lastResult);   
 };
 
 Operations.prototype.root = function(input) {
-    console.log('input', typeof input);
     if(input) {
         this.rootResult = Math.sqrt(input);
     }
     else {
         this.rootResult = Math.sqrt(this.rootResult);
     }
-    display.text(this.rootResult);
+    this.lastResult = this.rootResult;
+    display.text(this.lastResult);
 };
 
 Operations.prototype.equal = function(input, action) {
-    console.log('this.multiplyResult', this.multiplyResult);
-    console.log('input', input);
     this.lastValue = input;
-    console.log('this.lastValue', this.lastValue);
     switch(action) {
         case 'addition':
-            this.value += this.lastValue;
-            display.text(this.value);
+            this.lastResult += this.lastValue;
+            display.text(this.lastResult);
             break;
         case 'multiplication':
             this.multiplyResult *= this.lastValue;
             display.text(this.multiplyResult);
+            break;
+        case 'substruction':
+            this.subtrackResult -= this.lastValue;
+            this.lastResult = this.subtrackResult;
+            display.text(this.subtrackResult);
+            break;
+        case 'division':
+            this.divideResult /= this.lastValue;
+            display.text(this.divideResult);
             break;
     }
 };

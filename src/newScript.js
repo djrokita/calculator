@@ -44,7 +44,7 @@ $(document).ready(function() {
 				break;
 			case '-':
 				deviceOn.functionInUse = 'substruction';	
-				deviceOn.isUsedFunction = true;
+				counting.isUsedFunction = true;
 				counting.subtrack(deviceOn.number);
 				deviceOn.clearMemory();
 				break;	
@@ -55,7 +55,7 @@ $(document).ready(function() {
 		switch($(this).attr('id')) {
 			case 'divide':
 				deviceOn.functionInUse = 'division';	
-				deviceOn.isUsedFunction = true;
+				// deviceOn.isUsedFunction = true;
 				counting.divide(deviceOn.number);				
 				deviceOn.clearMemory();				
 				break;
@@ -65,7 +65,7 @@ $(document).ready(function() {
 				deviceOn.clearMemory();								
 				break;
 			case 'root':
-				deviceOn.isUsedFunction = true;
+				// deviceOn.isUsedFunction = true;
 				counting.root(deviceOn.number);				
 				deviceOn.clearMemory();								
 				break;
