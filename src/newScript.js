@@ -33,6 +33,7 @@ $(document).ready(function() {
 				deviceOn.clearDisplay();
 				break;
 			case '+':
+				// counting.equal(deviceOn.functionInUse);
 				deviceOn.functionInUse = 'addition';
 				counting.add(deviceOn.number);	
 				deviceOn.clearMemory();
@@ -49,13 +50,12 @@ $(document).ready(function() {
 				deviceOn.clearMemory();
 				break;	
 			case '=':
-				counting.equal(deviceOn.number, deviceOn.functionInUse);
+				counting.equal(deviceOn.functionInUse, deviceOn.number);
 				break;		
 		}
 		switch($(this).attr('id')) {
 			case 'divide':
 				deviceOn.functionInUse = 'division';	
-				// deviceOn.isUsedFunction = true;
 				counting.divide(deviceOn.number);				
 				deviceOn.clearMemory();				
 				break;
@@ -65,7 +65,6 @@ $(document).ready(function() {
 				deviceOn.clearMemory();								
 				break;
 			case 'root':
-				// deviceOn.isUsedFunction = true;
 				counting.root(deviceOn.number);				
 				deviceOn.clearMemory();								
 				break;

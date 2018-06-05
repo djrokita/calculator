@@ -27,7 +27,6 @@ Operations.prototype.add = function(input) {
     else {
         this.lastResult += this.lastValue;
     }
-    // this.lastResult = this.value;
     display.text(this.lastResult);
 };
 
@@ -104,7 +103,7 @@ Operations.prototype.root = function(input) {
     display.text(this.lastResult);
 };
 
-Operations.prototype.equal = function(input, action) {
+Operations.prototype.equal = function(action, input) {
     this.lastValue = input;
     switch(action) {
         case 'addition':
@@ -124,6 +123,8 @@ Operations.prototype.equal = function(input, action) {
             this.divideResult /= this.lastValue;
             display.text(this.divideResult);
             break;
+        default:
+            display.text(this.lastResult);
     }
 };
 
