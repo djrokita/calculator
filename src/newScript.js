@@ -34,8 +34,9 @@ $(document).ready(function() {
 				break;
 			case '+':
 				// counting.equal(deviceOn.functionInUse);
-				deviceOn.functionInUse = 'addition';
-				counting.add(deviceOn.number);	
+				// deviceOn.functionInUse = 'addition';
+				counting.add(deviceOn.number);
+				// deviceOn.display(counting.lastResult);	
 				deviceOn.clearMemory();
 				break;
 			case 'x':
@@ -69,6 +70,6 @@ $(document).ready(function() {
 				deviceOn.clearMemory();								
 				break;
 		}
-		console.log(deviceOn.functionInUse);
+		// console.log(deviceOn.functionInUse);
 	});
 });

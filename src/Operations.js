@@ -12,22 +12,46 @@ function Operations() {
     this.rootResult = 1;
     this.digit = "";
     this.lastResult = 0;
-    this.isUsedFunction = false;    
+    this.isUsedFunction = false; 
+    this.lastResultArray = [];   
 }
 
 Operations.prototype.display = function() {
-    display.text(this.lastResult);
+    // display.text(this.lastResult);
+    var numleng = this.lastResultArray.length;
+    var numbersArrayReverse = [];
+    if (numleng != 0) {
+        for (var i = numleng; i >= 0; i--) {
+            for(var j = 0; j <= 0; j++) {
+                numbersArrayReverse.push(this.lastResultArray[i]);
+            }
+        }
+        for (var l = 0; l <= numleng; l++) {
+            display.find('#' + l).text(numbersArrayReverse[l]);
+        }
+    }
+    else {
+        console.log('dupa');
+        display.find('#0').text(0);        
+    }
+    var newNumber = this.lastResultArray.join('');
+    this.lastResult = new Number(newNumber);
+
+
 };
 
 Operations.prototype.add = function(input) {
+    console.log('input', input);
     if(input) {
         this.lastValue = input;
         this.lastResult += input;
+        console.log('lastResult', this.lastResult);
     }
     else {
         this.lastResult += this.lastValue;
     }
-    display.text(this.lastResult);
+    console.log('result', this.lastResult);
+    return this.lastResult;
 };
 
 Operations.prototype.multiply = function(input) {
@@ -56,7 +80,6 @@ Operations.prototype.subtrack = function(input) {
     else {
         this.subtrackResult -= this.lastValue;
     }
-    console.log('sub', this.subtrackResult);
     this.lastResult = this.subtrackResult;
     display.text(this.lastResult);
 };
@@ -83,7 +106,6 @@ Operations.prototype.square = function(input) {
     if(input) {
         this.lastValue = input;
         this.squareResult = this.lastValue * this.lastValue;
-        console.log('kwadrat', this.squareResult);
     }
     else {
         this.squareResult *= this.squareResult
