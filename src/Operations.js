@@ -17,13 +17,15 @@ function Operations() {
 }
 
 Operations.prototype.display = function() {
-    // display.text(this.lastResult);
-    var numleng = this.lastResultArray.length;
+    var lastResult = this.lastResult.toString();
+    var lastResult = lastResult.split('');
+
+    var numleng = lastResult.length;
     var numbersArrayReverse = [];
     if (numleng != 0) {
         for (var i = numleng; i >= 0; i--) {
             for(var j = 0; j <= 0; j++) {
-                numbersArrayReverse.push(this.lastResultArray[i]);
+                numbersArrayReverse.push(lastResult[i]);
             }
         }
         for (var l = 0; l <= numleng; l++) {
@@ -34,24 +36,19 @@ Operations.prototype.display = function() {
         console.log('dupa');
         display.find('#0').text(0);        
     }
-    var newNumber = this.lastResultArray.join('');
-    this.lastResult = new Number(newNumber);
 
-
+    console.log('ok', this.lastResult, typeof this.lastResult);
 };
 
 Operations.prototype.add = function(input) {
-    console.log('input', input);
     if(input) {
         this.lastValue = input;
         this.lastResult += input;
-        console.log('lastResult', this.lastResult);
     }
     else {
         this.lastResult += this.lastValue;
     }
     console.log('result', this.lastResult);
-    return this.lastResult;
 };
 
 Operations.prototype.multiply = function(input) {
@@ -63,7 +60,6 @@ Operations.prototype.multiply = function(input) {
         this.multiplyResult *= this.lastValue;
     }
     this.lastResult = this.multiplyResult;
-    display.text(this.lastResult);
 };
 
 Operations.prototype.setStartingValues = function(input) {
@@ -81,7 +77,6 @@ Operations.prototype.subtrack = function(input) {
         this.subtrackResult -= this.lastValue;
     }
     this.lastResult = this.subtrackResult;
-    display.text(this.lastResult);
 };
 
 Operations.prototype.divide = function(input) {
@@ -99,7 +94,6 @@ Operations.prototype.divide = function(input) {
         this.divideResult /= this.lastValue;
     }
     this.lastResult = this.divideResult;    
-    display.text(this.lastResult);
 }; 
 
 Operations.prototype.square = function(input) {
@@ -111,7 +105,6 @@ Operations.prototype.square = function(input) {
         this.squareResult *= this.squareResult
     }
     this.lastResult = this.squareResult;
-    display.text(this.lastResult);   
 };
 
 Operations.prototype.root = function(input) {
@@ -122,7 +115,6 @@ Operations.prototype.root = function(input) {
         this.rootResult = Math.sqrt(this.rootResult);
     }
     this.lastResult = this.rootResult;
-    display.text(this.lastResult);
 };
 
 Operations.prototype.equal = function(action, input) {

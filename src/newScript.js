@@ -34,20 +34,22 @@ $(document).ready(function() {
 				break;
 			case '+':
 				// counting.equal(deviceOn.functionInUse);
-				// deviceOn.functionInUse = 'addition';
+				deviceOn.functionInUse = 'addition';
 				counting.add(deviceOn.number);
-				// deviceOn.display(counting.lastResult);	
+				counting.display();
 				deviceOn.clearMemory();
 				break;
 			case 'x':
 				deviceOn.functionInUse = 'multiplication';	
 				counting.multiply(deviceOn.number);	
+				counting.display();
 				deviceOn.clearMemory();			
 				break;
 			case '-':
 				deviceOn.functionInUse = 'substruction';	
 				counting.isUsedFunction = true;
 				counting.subtrack(deviceOn.number);
+				counting.display();
 				deviceOn.clearMemory();
 				break;	
 			case '=':
@@ -58,15 +60,18 @@ $(document).ready(function() {
 			case 'divide':
 				deviceOn.functionInUse = 'division';	
 				counting.divide(deviceOn.number);				
+				counting.display();
 				deviceOn.clearMemory();				
 				break;
 			case 'square':
 				deviceOn.isUsedFunction = true;
 				counting.square(deviceOn.number);				
+				counting.display();
 				deviceOn.clearMemory();								
 				break;
 			case 'root':
 				counting.root(deviceOn.number);				
+				counting.display();
 				deviceOn.clearMemory();								
 				break;
 		}

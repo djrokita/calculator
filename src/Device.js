@@ -33,7 +33,7 @@ Device.prototype.display = function() {
         }
     }
     var newNumber = this.numbersArray.join('');
-    this.number = new Number(newNumber);
+    this.number = parseInt(newNumber);
 };
 
 Device.prototype.clearDisplay = function() {
