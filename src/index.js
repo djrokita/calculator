@@ -1,10 +1,11 @@
 console.log("test");
 class Device {
-    input = 0;
+    input = null;
     result = 0;
     output = 0;
     operation = "";
     calcMethod;
+    shouldCalculate = false;
 
     setInput(value) {
         this.input = value;
@@ -28,18 +29,25 @@ class Device {
     }
 
     calculate() {
-        this.result = this.calcMethod(this.input);
-        this.input = 0;
+        this.result = this.calcMethod();
+        this.input = null;
     }
 
     setOperator(id) {
-        this.result = this.input;
+        if (this.shouldCalculate) {
+            this.calculate();
+            // this.input = 0;
+        } else {
+            this.result = this.input;
+        }
 
         if (Operations[id]) {
             this.operation = Operations[id];
         } else {
             throw new Error("Wrong operator");
         }
+
+        this.shouldCalculate = !this.shouldCalculate;
     }
 
     getResult() {
@@ -62,7 +70,7 @@ const Operations = {
 
 const calc = new Device();
 calc.setInput(5);
-calc.setOperator("divide");
+calc.setOperator("add");
 const result1 = calc.getResult();
 console.log("🚀 ~ file: index.js:46 ~ result1", result1);
 calc.setInput(2);
