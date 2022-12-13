@@ -7,11 +7,19 @@ class Processor {
     #shouldCalculate = false;
 
     set input(value) {
-        this.#input = value;
+        const number = parseFloat(value);
 
-        if (this.#operator) {
-            this.#calcMethod = this.#setCalcMethod(this.#operator)(value);
+        if (!Number.isNaN(number)) {
+            this.#input = number;
+
+            if (this.#operator) {
+                this.#calcMethod = this.#setCalcMethod(this.#operator)(number);
+            }
+
+            return this.#input;
         }
+
+        throw new Error("Input value is not a number");
     }
 
     #setCalcMethod(id) {
@@ -182,8 +190,10 @@ class Device {
             this.calculator.input = this.#output;
             this.calculator.operator = value;
             this.shouldResetDisplay = true;
+            const result = this.calculator.result;
+            this.output = result.toString();
+            this.#displayOutput();
         }
-        console.log("func", value);
     }
 }
 
