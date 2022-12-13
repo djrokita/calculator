@@ -1,17 +1,16 @@
-console.log("test");
 class Processor {
-    input = null;
-    result = 0;
-    output = 0;
-    operation = "";
+    #input = null;
+    #result = 0;
+    #output = 0;
+    #operator = "";
     #calcMethod;
     #shouldCalculate = false;
 
-    setInput(value) {
-        this.input = value;
+    set input(value) {
+        this.#input = value;
 
-        if (this.operation) {
-            this.calcMethod = this.#setCalcMethod(this.operation)(value);
+        if (this.#operator) {
+            this.#calcMethod = this.#setCalcMethod(this.#operator)(value);
         }
     }
 
@@ -37,20 +36,19 @@ class Processor {
     }
 
     calculate() {
-        this.result = this.calcMethod();
-        this.input = null;
+        this.#result = this.#calcMethod();
+        this.#input = null;
     }
 
-    setOperator(id) {
+    set operator(id) {
         if (this.shouldCalculate) {
             this.calculate();
-            // this.input = 0;
         } else {
-            this.result = this.input;
+            this.#result = this.#input;
         }
 
         if (Operations[id]) {
-            this.operation = Operations[id];
+            this.#operator = Operations[id];
         } else {
             throw new Error("Wrong operator");
         }
@@ -58,12 +56,16 @@ class Processor {
         this.shouldCalculate = !this.shouldCalculate;
     }
 
-    getResult() {
-        return this.result;
+    get operator() {
+        return this.#operator;
     }
 
-    getOutput() {
-        return this.output;
+    get result() {
+        return this.#result;
+    }
+
+    get output() {
+        return this.#output;
     }
 }
 
@@ -77,26 +79,26 @@ const Operations = {
 };
 
 const calc = new Processor();
-calc.setInput(5);
-calc.setOperator("add");
-const result1 = calc.getResult();
+calc.input = 5;
+calc.operator = "add";
+const result1 = calc.result;
 console.log("🚀 ~ file: index.js:46 ~ result1", result1);
-calc.setInput(2);
+calc.input = 2;
 
-// const result2 = calc.getResult();
+// const result2 = calc.result;
 // console.log("🚀 ~ file: index.js:52 ~ result2", result2);
 
 // debugger;
-// calc.setOperator("add");
-calc.calculate();
-const result3 = calc.getResult();
+calc.operator = "add";
+// calc.calculate();
+const result3 = calc.result;
 console.log("🚀 ~ file: index.js:56 ~ result3", result3);
-console.log("should", calc.shouldCalculate);
+// console.log("should", calc.shouldCalculate);
 // calc.setOperator("add");
 
-calc.calculate();
-const result4 = calc.getResult();
-console.log("🚀 ~ file: index.js:60 ~ result4", result4);
+// calc.calculate();
+// const result4 = calc.getResult();
+// console.log("🚀 ~ file: index.js:60 ~ result4", result4);
 
 class Device {
     constructor() {
@@ -113,9 +115,14 @@ class Device {
     }
 
     #clickHandler(event) {
+        const value = event.target.dataset.key;
+
         if (event.target.classList.contains("number")) {
-            const value = event.target.dataset.key;
-            this.#clickNumberHandler(value);
+            return this.#clickNumberHandler(value);
+        }
+
+        if (event.target.classList.contains("func")) {
+            return this.#clickFuncHandler(value);
         }
     }
 
@@ -131,6 +138,14 @@ class Device {
             const cell = this.outContainer?.querySelector(`#out-${index}`);
             cell.innerText = value;
         });
+    }
+
+    #clickFuncHandler(value) {
+        if (this.output) {
+            this.calculator.input = this.output;
+            // this.calculator.
+        }
+        console.log("func", value);
     }
 }
 
