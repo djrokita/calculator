@@ -1,11 +1,11 @@
 console.log("test");
-class Device {
+class Processor {
     input = null;
     result = 0;
     output = 0;
     operation = "";
-    calcMethod;
-    shouldCalculate = false;
+    #calcMethod;
+    #shouldCalculate = false;
 
     setInput(value) {
         this.input = value;
@@ -26,6 +26,14 @@ class Device {
             case "divide":
                 return (value) => () => this.result / value;
         }
+    }
+
+    get shouldCalculate() {
+        return this.#shouldCalculate;
+    }
+
+    set shouldCalculate(value) {
+        return (this.#shouldCalculate = value);
     }
 
     calculate() {
@@ -68,7 +76,7 @@ const Operations = {
     divide: "divide",
 };
 
-const calc = new Device();
+const calc = new Processor();
 calc.setInput(5);
 calc.setOperator("add");
 const result1 = calc.getResult();
@@ -83,9 +91,47 @@ calc.setInput(2);
 calc.calculate();
 const result3 = calc.getResult();
 console.log("🚀 ~ file: index.js:56 ~ result3", result3);
-
+console.log("should", calc.shouldCalculate);
 // calc.setOperator("add");
 
 calc.calculate();
 const result4 = calc.getResult();
 console.log("🚀 ~ file: index.js:60 ~ result4", result4);
+
+class Device {
+    constructor() {
+        this.usedKey = "";
+        this.output = "";
+        this.calculator = new Processor();
+        this.inputKeysContainer = document.querySelector(".in");
+        this.outContainer = document.getElementById("out");
+        this.#attachClickListener();
+    }
+
+    #attachClickListener() {
+        this.inputKeysContainer?.addEventListener("click", this.#clickHandler.bind(this), true);
+    }
+
+    #clickHandler(event) {
+        if (event.target.classList.contains("number")) {
+            const value = event.target.dataset.key;
+            this.#clickNumberHandler(value);
+        }
+    }
+
+    #clickNumberHandler(value) {
+        this.output = this.output + value;
+        this.#displayOutput();
+    }
+
+    #displayOutput() {
+        const text = this.output.split("").reverse();
+
+        text.forEach((value, index) => {
+            const cell = this.outContainer?.querySelector(`#out-${index}`);
+            cell.innerText = value;
+        });
+    }
+}
+
+new Device();
