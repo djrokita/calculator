@@ -2,9 +2,12 @@ class Processor {
     #input = null;
     #result = 0;
     #output = 0;
-    #operator = "";
+    #operator = null;
     #calcMethod;
-    #shouldCalculate = false;
+
+    get input() {
+        return this.#input;
+    }
 
     set input(value) {
         const number = parseFloat(value);
@@ -12,8 +15,9 @@ class Processor {
         if (!Number.isNaN(number)) {
             this.#input = number;
 
-            if (this.#operator) {
-                this.#calcMethod = this.#setCalcMethod(this.#operator)(number);
+            if (this.operator) {
+                this.#calcMethod = this.#setCalcMethod(this.operator, number);
+                this.operator = null;
             }
 
             return this.#input;
@@ -22,46 +26,38 @@ class Processor {
         throw new Error("Input value is not a number");
     }
 
-    #setCalcMethod(id) {
-        switch (id) {
+    #setCalcMethod(operator, value) {
+        switch (operator) {
             case "add":
-                return (value) => () => this.result + value;
+                return () => this.result + value;
             case "subtract":
-                return (value) => () => this.result - value;
+                return () => this.result - value;
             case "multiply":
-                return (value) => () => this.result * value;
+                return () => this.result * value;
             case "divide":
-                return (value) => () => this.result / value;
+                return () => this.result / value;
         }
-    }
-
-    get shouldCalculate() {
-        return this.#shouldCalculate;
-    }
-
-    set shouldCalculate(value) {
-        return (this.#shouldCalculate = value);
     }
 
     calculate() {
         this.#result = this.#calcMethod();
-        this.#input = null;
+        // this.#input = null;
     }
 
     set operator(id) {
-        if (this.shouldCalculate) {
-            this.calculate();
-        } else {
-            this.#result = this.#input;
+        if (id === null) {
+            return (this.#operator = null);
         }
+
+        this.#result = this.#input;
 
         if (Operations[id]) {
             this.#operator = Operations[id];
-        } else {
-            throw new Error("Wrong operator");
+
+            return this.#operator;
         }
 
-        this.shouldCalculate = !this.shouldCalculate;
+        throw new Error("Wrong operator");
     }
 
     get operator() {
@@ -102,10 +98,10 @@ const Operations = {
 // const result3 = calc.result;
 // console.log("🚀 ~ file: index.js:56 ~ result3", result3);
 // console.log("should", calc.shouldCalculate);
-// calc.setOperator("add");
+// calc.operator = "add";
 
 // calc.calculate();
-// const result4 = calc.getResult();
+// const result4 = calc.result;
 // console.log("🚀 ~ file: index.js:60 ~ result4", result4);
 
 class Device {
@@ -147,6 +143,10 @@ class Device {
     #clickHandler(event) {
         const value = event.target.dataset.key;
 
+        if (value === "equal") {
+            return this.#clickEquasionHandler();
+        }
+
         if (event.target.classList.contains("number")) {
             return this.#clickNumberHandler(value);
         }
@@ -176,6 +176,12 @@ class Device {
         this.shouldResetDisplay = false;
     }
 
+    displayResult() {
+        const result = this.calculator.result;
+        this.output = result.toString();
+        this.#displayOutput();
+    }
+
     #displayOutput() {
         const text = this.#output.split("").reverse();
 
@@ -187,13 +193,19 @@ class Device {
 
     #clickFuncHandler(value) {
         if (this.#output) {
+            // debugger;
             this.calculator.input = this.#output;
             this.calculator.operator = value;
             this.shouldResetDisplay = true;
-            const result = this.calculator.result;
-            this.output = result.toString();
-            this.#displayOutput();
+            this.displayResult();
         }
+    }
+
+    #clickEquasionHandler() {
+        // debugger;
+        this.calculator.input = this.#output;
+        this.calculator.calculate();
+        this.displayResult();
     }
 }
 
