@@ -78,21 +78,21 @@ const Operations = {
     divide: "divide",
 };
 
-const calc = new Processor();
-calc.input = 5;
-calc.operator = "add";
-const result1 = calc.result;
-console.log("🚀 ~ file: index.js:46 ~ result1", result1);
-calc.input = 2;
+// const calc = new Processor();
+// calc.input = 5;
+// calc.operator = "add";
+// const result1 = calc.result;
+// console.log("🚀 ~ file: index.js:46 ~ result1", result1);
+// calc.input = 2;
 
 // const result2 = calc.result;
 // console.log("🚀 ~ file: index.js:52 ~ result2", result2);
 
 // debugger;
-calc.operator = "add";
+// calc.operator = "add";
 // calc.calculate();
-const result3 = calc.result;
-console.log("🚀 ~ file: index.js:56 ~ result3", result3);
+// const result3 = calc.result;
+// console.log("🚀 ~ file: index.js:56 ~ result3", result3);
 // console.log("should", calc.shouldCalculate);
 // calc.setOperator("add");
 
@@ -101,17 +101,39 @@ console.log("🚀 ~ file: index.js:56 ~ result3", result3);
 // console.log("🚀 ~ file: index.js:60 ~ result4", result4);
 
 class Device {
+    #output = "";
+    #shouldResetDisplay = false;
+
     constructor() {
         this.usedKey = "";
-        this.output = "";
         this.calculator = new Processor();
         this.inputKeysContainer = document.querySelector(".in");
         this.outContainer = document.getElementById("out");
         this.#attachClickListener();
     }
 
+    get output() {
+        return this.#output;
+    }
+
+    set output(value) {
+        return (this.#output = value);
+    }
+
+    get shouldResetDisplay() {
+        return this.#shouldResetDisplay;
+    }
+
+    set shouldResetDisplay(value) {
+        return (this.#shouldResetDisplay = value);
+    }
+
+    #resetOutput() {
+        this.output = "";
+    }
+
     #attachClickListener() {
-        this.inputKeysContainer?.addEventListener("click", this.#clickHandler.bind(this), true);
+        this.inputKeysContainer?.addEventListener("click", this.#clickHandler.bind(this));
     }
 
     #clickHandler(event) {
@@ -127,12 +149,27 @@ class Device {
     }
 
     #clickNumberHandler(value) {
-        this.output = this.output + value;
+        if (this.#shouldResetDisplay) {
+            this.#resetOutput();
+            this.#resetDisplay();
+        }
+
+        this.#output = this.#output + value;
         this.#displayOutput();
     }
 
+    #resetDisplay() {
+        const displayCells = this.outContainer.children;
+
+        for (let cell of displayCells) {
+            cell.innerText = "";
+        }
+
+        this.shouldResetDisplay = false;
+    }
+
     #displayOutput() {
-        const text = this.output.split("").reverse();
+        const text = this.#output.split("").reverse();
 
         text.forEach((value, index) => {
             const cell = this.outContainer?.querySelector(`#out-${index}`);
@@ -141,9 +178,10 @@ class Device {
     }
 
     #clickFuncHandler(value) {
-        if (this.output) {
-            this.calculator.input = this.output;
-            // this.calculator.
+        if (this.#output) {
+            this.calculator.input = this.#output;
+            this.calculator.operator = value;
+            this.shouldResetDisplay = true;
         }
         console.log("func", value);
     }
