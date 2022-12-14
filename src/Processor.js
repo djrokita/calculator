@@ -2,7 +2,7 @@ export class Processor {
     #input = null;
     #result = null;
     #operator = null;
-    #calcMethod;
+    #calcMethod = null;
 
     get input() {
         return this.#input;
@@ -41,6 +41,13 @@ export class Processor {
     calculate() {
         this.#result = this.#calcMethod();
         // this.#input = null;
+    }
+
+    reset() {
+        this.#input = null;
+        this.#operator = null;
+        this.#result = null;
+        this.#calcMethod = null;
     }
 
     set operator(id) {

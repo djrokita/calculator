@@ -2,15 +2,15 @@ import { Processor } from "./Processor";
 
 export class Device {
     #output = "";
-    #isOperationComplited = false;
+    #isOperationCompleted = false;
     #shouldResetDisplay = false;
 
     constructor() {
-        this.usedKey = "";
         this.calculator = new Processor();
         this.inputKeysContainer = document.querySelector(".in");
         this.outContainer = document.getElementById("out");
         this.#attachClickListener();
+        // this.#displayOutput();
     }
 
     get output() {
@@ -29,12 +29,12 @@ export class Device {
         return (this.#shouldResetDisplay = value);
     }
 
-    get isOperationComplited() {
-        return this.#isOperationComplited;
+    get isOperationCompleted() {
+        return this.#isOperationCompleted;
     }
 
-    set isOperationComplited(value) {
-        return (this.#isOperationComplited = value);
+    set isOperationCompleted(value) {
+        return (this.#isOperationCompleted = value);
     }
 
     #resetOutput() {
@@ -52,6 +52,10 @@ export class Device {
             return this.#clickEquasionHandler();
         }
 
+        if (value === "reset") {
+            return this.reset();
+        }
+
         if (event.target.classList.contains("number")) {
             return this.#clickNumberHandler(value);
         }
@@ -62,14 +66,14 @@ export class Device {
     }
 
     #clickNumberHandler(value) {
-        this.isOperationComplited = false;
+        this.isOperationCompleted = false;
 
         if (this.#shouldResetDisplay) {
             this.#resetOutput();
             this.#resetDisplay();
         }
 
-        this.#output = this.#output + value;
+        this.output = this.output + value;
         this.#displayOutput();
     }
 
@@ -90,7 +94,7 @@ export class Device {
     }
 
     #displayOutput() {
-        const text = this.#output.split("").reverse();
+        const text = this.output.split("").reverse();
 
         text.forEach((value, index) => {
             const cell = this.outContainer?.querySelector(`#out-${index}`);
@@ -99,13 +103,13 @@ export class Device {
     }
 
     #clickFuncHandler(value) {
-        if (this.#output) {
-            this.calculator.input = this.#output;
+        if (this.output) {
+            this.calculator.input = this.output;
             this.shouldResetDisplay = true;
 
-            if (this.calculator.result !== null && !this.isOperationComplited) {
+            if (this.calculator.result !== null && !this.isOperationCompleted) {
                 this.calculator.calculate();
-                this.isOperationComplited = true;
+                this.isOperationCompleted = true;
             } else {
                 this.calculator.operator = value;
             }
@@ -115,9 +119,16 @@ export class Device {
     }
 
     #clickEquasionHandler() {
-        this.isOperationComplited = true;
-        this.calculator.input = this.#output;
+        this.isOperationCompleted = true;
+        this.calculator.input = this.output;
         this.calculator.calculate();
         this.displayResult();
+    }
+
+    reset() {
+        this.isOperationCompleted = false;
+        this.calculator.reset();
+        this.#resetOutput();
+        this.#resetDisplay();
     }
 }
