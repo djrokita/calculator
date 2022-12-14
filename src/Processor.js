@@ -3,6 +3,7 @@ export class Processor {
     #result = null;
     #operator = null;
     #calcMethod = null;
+    #counter = 0;
 
     get input() {
         return this.#input;
@@ -25,6 +26,10 @@ export class Processor {
         throw new Error("Input value is not a number");
     }
 
+    get counter() {
+        return this.#counter;
+    }
+
     #setCalcMethod(operator, value) {
         switch (operator) {
             case "add":
@@ -40,6 +45,7 @@ export class Processor {
 
     calculate() {
         this.#result = this.#calcMethod();
+        this.#counter += 1;
         // this.#input = null;
     }
 
@@ -48,6 +54,7 @@ export class Processor {
         this.#operator = null;
         this.#result = null;
         this.#calcMethod = null;
+        this.#counter = 0;
     }
 
     set operator(id) {
