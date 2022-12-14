@@ -2,6 +2,7 @@ import { Processor } from "./Processor";
 
 export class Device {
     #output = "";
+    #isOperationComplited = false;
     #shouldResetDisplay = false;
 
     constructor() {
@@ -26,6 +27,14 @@ export class Device {
 
     set shouldResetDisplay(value) {
         return (this.#shouldResetDisplay = value);
+    }
+
+    get isOperationComplited() {
+        return this.#isOperationComplited;
+    }
+
+    set isOperationComplited(value) {
+        return (this.#isOperationComplited = value);
     }
 
     #resetOutput() {
@@ -53,6 +62,8 @@ export class Device {
     }
 
     #clickNumberHandler(value) {
+        this.isOperationComplited = false;
+
         if (this.#shouldResetDisplay) {
             this.#resetOutput();
             this.#resetDisplay();
@@ -89,22 +100,22 @@ export class Device {
 
     #clickFuncHandler(value) {
         if (this.#output) {
-            debugger;
             this.calculator.input = this.#output;
+            this.shouldResetDisplay = true;
 
-            if (this.calculator.operator) {
+            if (this.calculator.result !== null && !this.isOperationComplited) {
                 this.calculator.calculate();
-                this.displayResult();
+                this.isOperationComplited = true;
+            } else {
+                this.calculator.operator = value;
             }
 
-            this.calculator.operator = value;
-            this.shouldResetDisplay = true;
             this.displayResult();
         }
     }
 
     #clickEquasionHandler() {
-        debugger;
+        this.isOperationComplited = true;
         this.calculator.input = this.#output;
         this.calculator.calculate();
         this.displayResult();

@@ -1,7 +1,6 @@
 export class Processor {
     #input = null;
-    #result = 0;
-    #output = 0;
+    #result = null;
     #operator = null;
     #calcMethod;
 
@@ -67,13 +66,7 @@ export class Processor {
     get result() {
         return this.#result;
     }
-
-    get output() {
-        return this.#output;
-    }
 }
-
-const divide = (val1, val2) => val1 / val2;
 
 const Operations = {
     add: "add",
