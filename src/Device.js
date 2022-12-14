@@ -1,7 +1,9 @@
 import { Processor } from "./Processor";
 
+const INIT_OUTPUT = "";
+
 export class Device {
-    #output = "";
+    #output = INIT_OUTPUT;
     #isOperationCompleted = false;
     #shouldResetDisplay = false;
 
@@ -10,7 +12,7 @@ export class Device {
         this.inputKeysContainer = document.querySelector(".in");
         this.outContainer = document.getElementById("out");
         this.#attachClickListener();
-        // this.#displayOutput();
+        this.#resetDisplay();
     }
 
     get output() {
@@ -38,7 +40,7 @@ export class Device {
     }
 
     #resetOutput() {
-        this.output = "";
+        this.output = INIT_OUTPUT;
     }
 
     #attachClickListener() {
@@ -83,6 +85,9 @@ export class Device {
         for (let cell of displayCells) {
             cell.innerText = "";
         }
+
+        const firstCell = this.outContainer.lastElementChild;
+        firstCell.innerText = "0";
 
         this.shouldResetDisplay = false;
     }
