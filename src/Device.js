@@ -62,6 +62,10 @@ export class Device {
             return this.#clickNumberHandler(value);
         }
 
+        if (event.target.classList.contains("unary")) {
+            return this.#clickUnaryFuncHandler(value);
+        }
+
         if (event.target.classList.contains("func")) {
             return this.#clickFuncHandler(value);
         }
@@ -73,6 +77,7 @@ export class Device {
         if (this.#shouldResetDisplay) {
             this.#resetOutput();
             this.#resetDisplay();
+            this.shouldResetDisplay = false;
         }
 
         this.output = this.output + value;
@@ -88,11 +93,10 @@ export class Device {
 
         const firstCell = this.outContainer.lastElementChild;
         firstCell.innerText = "0";
-
-        this.shouldResetDisplay = false;
     }
 
     displayResult() {
+        this.#resetDisplay();
         const result = this.calculator.result;
         this.output = result.toString();
         this.#displayOutput();
@@ -119,6 +123,16 @@ export class Device {
                 this.calculator.operator = value;
             }
 
+            this.displayResult();
+        }
+    }
+
+    #clickUnaryFuncHandler(value) {
+        if (this.output) {
+            this.calculator.operator = value;
+            this.calculator.input = this.output;
+            this.calculator.calculate();
+            this.isOperationCompleted = true;
             this.displayResult();
         }
     }
