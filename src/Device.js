@@ -1,4 +1,5 @@
 import { Processor } from "./Processor";
+import "./styles/style.css";
 
 const INIT_OUTPUT = "";
 const NUMBER_REGEX = /^[+|-]?\d+([.]?\d+)$/;

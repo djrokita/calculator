@@ -53,7 +53,6 @@ export class Processor {
             this.#calcMethod = this.#setCalcMethod(this.operator, this.input);
 
             this.result = this.#calcMethod();
-            // this.operator = null;
             this.input = null;
             this.#counter += 1;
             return;
