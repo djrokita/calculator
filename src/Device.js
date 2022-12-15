@@ -1,6 +1,7 @@
 import { Processor } from "./Processor";
 
 const INIT_OUTPUT = "";
+const NUMBER_REGEX = /^[+|-]?\d+([.]?\d+)$/;
 
 export class Device {
     #output = INIT_OUTPUT;
@@ -78,6 +79,10 @@ export class Device {
     }
 
     #clickNumberHandler(value) {
+        if (/[.]/.test(value) && /[.]/.test(this.output)) {
+            return;
+        }
+
         this.isOperationCompleted = false;
 
         if (this.#shouldResetDisplay) {
