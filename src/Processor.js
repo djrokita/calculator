@@ -1,5 +1,5 @@
 export class Processor {
-    #input = null;
+    #input = 0;
     #result = null;
     #operator = null;
     #calcMethod = null;
@@ -14,11 +14,6 @@ export class Processor {
 
         if (!Number.isNaN(number)) {
             this.#input = number;
-
-            if (this.operator) {
-                this.#calcMethod = this.#setCalcMethod(this.operator, number);
-                this.operator = null;
-            }
 
             return this.#input;
         }
@@ -40,20 +35,34 @@ export class Processor {
                 return () => this.result * value;
             case "divide":
                 return () => this.result / value;
+            case "square":
+                return () => Math.pow(this.input, 2);
+            case "root":
+                return () => Math.sqrt(this.input);
+            default:
+                return;
         }
     }
 
     calculate() {
-        this.#result = this.#calcMethod();
-        this.#counter += 1;
-        // this.#input = null;
+        if (this.operator) {
+            this.#calcMethod = this.#setCalcMethod(this.operator, this.input);
+
+            this.result = this.#calcMethod();
+            this.operator = null;
+            this.#counter += 1;
+            // this.#input = null;
+            return;
+        }
+
+        throw new Error("There is no opetator set");
     }
 
     reset() {
-        this.#input = null;
-        this.#operator = null;
-        this.#result = null;
-        this.#calcMethod = null;
+        this.input = 0;
+        this.operator = null;
+        this.result = null;
+        this.calcMethod = null;
         this.#counter = 0;
     }
 
@@ -62,7 +71,7 @@ export class Processor {
             return (this.#operator = null);
         }
 
-        this.#result = this.#input;
+        this.result = this.#input;
 
         if (Operations[id]) {
             this.#operator = Operations[id];
@@ -80,6 +89,10 @@ export class Processor {
     get result() {
         return this.#result;
     }
+
+    set result(value) {
+        return (this.#result = value);
+    }
 }
 
 const Operations = {
@@ -87,6 +100,8 @@ const Operations = {
     subtract: "subtract",
     multiply: "multiply",
     divide: "divide",
+    square: "square",
+    root: "root",
 };
 
 // const calc = new Processor();
