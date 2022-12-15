@@ -51,16 +51,14 @@ export class Device {
         const value = event.target.dataset.key;
 
         if (value === "equal") {
-            return this.#clickEquasionHandler();
+            const calculate = this.calculator.calculate.bind(this.calculator);
+            return this.getResult(calculate);
         }
 
         if (value === "percent") {
-            return this.#clickPercentHandler();
+            const calculate = this.calculator.calculatePercent.bind(this.calculator);
+            return this.getResult(calculate);
         }
-
-        // if (value === "equal") {
-        //     return this.#clickEquasionHandler();
-        // }
 
         if (value === "reset") {
             return this.reset();
@@ -145,17 +143,10 @@ export class Device {
         }
     }
 
-    #clickEquasionHandler() {
+    getResult(calculate) {
         this.isOperationCompleted = true;
         this.calculator.input = this.output;
-        this.calculator.calculate();
-        this.displayResult();
-    }
-
-    #clickPercentHandler() {
-        this.isOperationCompleted = true;
-        this.calculator.input = this.output;
-        this.calculator.calculatePercent();
+        calculate();
         this.displayResult();
     }
 
