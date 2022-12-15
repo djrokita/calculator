@@ -10,6 +10,10 @@ export class Processor {
     }
 
     set input(value) {
+        if (value === null) {
+            return (this.#input = value);
+        }
+
         const number = parseFloat(value);
 
         if (!Number.isNaN(number)) {
@@ -49,6 +53,8 @@ export class Processor {
             this.#calcMethod = this.#setCalcMethod(this.operator, this.input);
 
             this.result = this.#calcMethod();
+            // this.operator = null;
+            this.input = null;
             this.#counter += 1;
             return;
         }
@@ -81,7 +87,9 @@ export class Processor {
             return (this.#operator = null);
         }
 
-        this.result = this.#input;
+        if (this.input !== null) {
+            this.result = this.input;
+        }
 
         if (Operations[id]) {
             this.#operator = Operations[id];

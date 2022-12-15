@@ -130,9 +130,9 @@ export class Device {
             if (this.calculator.result !== null && !this.isOperationCompleted) {
                 this.calculator.calculate();
                 this.isOperationCompleted = true;
-            } else {
-                this.calculator.operator = value;
             }
+
+            this.calculator.operator = value;
 
             this.displayResult();
         }
