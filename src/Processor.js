@@ -49,13 +49,23 @@ export class Processor {
             this.#calcMethod = this.#setCalcMethod(this.operator, this.input);
 
             this.result = this.#calcMethod();
-            this.operator = null;
             this.#counter += 1;
-            // this.#input = null;
             return;
         }
 
         throw new Error("There is no opetator set");
+    }
+
+    calculatePercent() {
+        this.calculate();
+
+        if (this.operator === "multiply") {
+            return (this.result /= 100);
+        }
+
+        if (this.operator === "divide") {
+            return (this.result *= 100);
+        }
     }
 
     reset() {
@@ -102,26 +112,5 @@ const Operations = {
     divide: "divide",
     square: "square",
     root: "root",
+    percent: "percent",
 };
-
-// const calc = new Processor();
-// calc.input = 5;
-// calc.operator = "add";
-// const result1 = calc.result;
-// console.log("🚀 ~ file: index.js:46 ~ result1", result1);
-// calc.input = 2;
-
-// const result2 = calc.result;
-// console.log("🚀 ~ file: index.js:52 ~ result2", result2);
-
-// debugger;
-// calc.operator = "add";
-// calc.calculate();
-// const result3 = calc.result;
-// console.log("🚀 ~ file: index.js:56 ~ result3", result3);
-// console.log("should", calc.shouldCalculate);
-// calc.operator = "add";
-
-// calc.calculate();
-// const result4 = calc.result;
-// console.log("🚀 ~ file: index.js:60 ~ result4", result4);

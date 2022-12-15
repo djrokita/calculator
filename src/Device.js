@@ -54,6 +54,14 @@ export class Device {
             return this.#clickEquasionHandler();
         }
 
+        if (value === "percent") {
+            return this.#clickPercentHandler();
+        }
+
+        // if (value === "equal") {
+        //     return this.#clickEquasionHandler();
+        // }
+
         if (value === "reset") {
             return this.reset();
         }
@@ -141,6 +149,13 @@ export class Device {
         this.isOperationCompleted = true;
         this.calculator.input = this.output;
         this.calculator.calculate();
+        this.displayResult();
+    }
+
+    #clickPercentHandler() {
+        this.isOperationCompleted = true;
+        this.calculator.input = this.output;
+        this.calculator.calculatePercent();
         this.displayResult();
     }
 
