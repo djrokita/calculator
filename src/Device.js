@@ -7,6 +7,7 @@ export class Device {
     #output = INIT_OUTPUT;
     #isOperationCompleted = false;
     #shouldResetDisplay = false;
+    #isOverLimit = false;
 
     constructor() {
         this.calculator = new Processor();
@@ -40,6 +41,14 @@ export class Device {
         return (this.#isOperationCompleted = value);
     }
 
+    get isOverLimit() {
+        return this.#isOverLimit;
+    }
+
+    set isOverLimit(value) {
+        return (this.#isOverLimit = value);
+    }
+
     #resetOutput() {
         this.output = INIT_OUTPUT;
     }
@@ -51,30 +60,32 @@ export class Device {
     #clickHandler(event) {
         const value = event.target.dataset.key;
 
-        if (value === "equal") {
-            const calculate = this.calculator.calculate.bind(this.calculator);
-            return this.getResult(calculate);
-        }
-
-        if (value === "percent") {
-            const calculate = this.calculator.calculatePercent.bind(this.calculator);
-            return this.getResult(calculate);
-        }
-
         if (value === "reset") {
             return this.reset();
         }
 
-        if (event.target.classList.contains("number")) {
-            return this.#clickNumberHandler(value);
-        }
+        if (!this.isOverLimit) {
+            if (value === "equal") {
+                const calculate = this.calculator.calculate.bind(this.calculator);
+                return this.getResult(calculate);
+            }
 
-        if (event.target.classList.contains("unary")) {
-            return this.#clickUnaryFuncHandler(value);
-        }
+            if (value === "percent") {
+                const calculate = this.calculator.calculatePercent.bind(this.calculator);
+                return this.getResult(calculate);
+            }
 
-        if (event.target.classList.contains("func")) {
-            return this.#clickFuncHandler(value);
+            if (event.target.classList.contains("number")) {
+                return this.#clickNumberHandler(value);
+            }
+
+            if (event.target.classList.contains("unary")) {
+                return this.#clickUnaryFuncHandler(value);
+            }
+
+            if (event.target.classList.contains("func")) {
+                return this.#clickFuncHandler(value);
+            }
         }
     }
 
@@ -92,6 +103,7 @@ export class Device {
         }
 
         this.output = this.output + value;
+
         this.#displayOutput();
     }
 
@@ -110,10 +122,12 @@ export class Device {
         this.#resetDisplay();
         const result = this.calculator.result;
         this.output = result.toString();
+
         this.#displayOutput();
     }
 
     #displayOutput() {
+        this.#validateLimit();
         const text = this.output.split("").reverse();
 
         text.forEach((value, index) => {
@@ -148,6 +162,14 @@ export class Device {
         }
     }
 
+    #validateLimit() {
+        if (this.output.length > 12) {
+            this.output = this.output.slice(0, 11);
+            this.output = "E" + this.output;
+            this.isOverLimit = true;
+        }
+    }
+
     getResult(calculate) {
         this.isOperationCompleted = true;
         this.calculator.input = this.output;
@@ -157,6 +179,7 @@ export class Device {
 
     reset() {
         this.isOperationCompleted = false;
+        this.isOverLimit = false;
         this.calculator.reset();
         this.#resetOutput();
         this.#resetDisplay();
