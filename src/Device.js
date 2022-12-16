@@ -150,6 +150,11 @@ export class Device {
             this.calculator.operator = value;
 
             this.displayResult();
+        } else {
+            if (value === "subtract") {
+                this.output = this.output + "-";
+                this.#displayOutput();
+            }
         }
     }
 
