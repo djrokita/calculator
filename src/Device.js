@@ -1,8 +1,6 @@
 import { Processor } from "./Processor";
+import { INIT_OUTPUT } from "./constants";
 import "./styles/style.css";
-
-const INIT_OUTPUT = "";
-const NUMBER_REGEX = /^[+|-]?\d+([.]?\d+)$/;
 
 export class Device {
     #output = INIT_OUTPUT;
@@ -48,6 +46,29 @@ export class Device {
 
     set isOverLimit(value) {
         return (this.#isOverLimit = value);
+    }
+
+    getResult(calculate) {
+        this.isOperationCompleted = true;
+        this.calculator.input = this.output;
+        calculate();
+        this.displayResult();
+    }
+
+    reset() {
+        this.isOperationCompleted = false;
+        this.isOverLimit = false;
+        this.calculator.reset();
+        this.#resetOutput();
+        this.#resetDisplay();
+    }
+
+    displayResult() {
+        this.#resetDisplay();
+        const result = this.calculator.result;
+        this.output = result.toString();
+
+        this.#displayOutput();
     }
 
     #resetOutput() {
@@ -119,14 +140,6 @@ export class Device {
         firstCell.innerText = "0";
     }
 
-    displayResult() {
-        this.#resetDisplay();
-        const result = this.calculator.result;
-        this.output = result.toString();
-
-        this.#displayOutput();
-    }
-
     #displayOutput() {
         this.#validateLimit();
         const text = this.output.split("").reverse();
@@ -174,20 +187,5 @@ export class Device {
             this.output = "E" + this.output;
             this.isOverLimit = true;
         }
-    }
-
-    getResult(calculate) {
-        this.isOperationCompleted = true;
-        this.calculator.input = this.output;
-        calculate();
-        this.displayResult();
-    }
-
-    reset() {
-        this.isOperationCompleted = false;
-        this.isOverLimit = false;
-        this.calculator.reset();
-        this.#resetOutput();
-        this.#resetDisplay();
     }
 }

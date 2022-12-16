@@ -1,3 +1,5 @@
+import { OPERATIONS } from "./constants";
+
 export class Processor {
     #input = 0;
     #result = null;
@@ -29,23 +31,34 @@ export class Processor {
         return this.#counter;
     }
 
-    #setCalcMethod(operator, value) {
-        switch (operator) {
-            case "add":
-                return () => this.result + value;
-            case "subtract":
-                return () => this.result - value;
-            case "multiply":
-                return () => this.result * value;
-            case "divide":
-                return () => this.result / value;
-            case "square":
-                return () => Math.pow(this.input, 2);
-            case "root":
-                return () => Math.sqrt(this.input);
-            default:
-                return;
+    set operator(id) {
+        if (id === null) {
+            return (this.#operator = null);
         }
+
+        if (this.input !== null) {
+            this.result = this.input;
+        }
+
+        if (OPERATIONS[id]) {
+            this.#operator = OPERATIONS[id];
+
+            return this.#operator;
+        }
+
+        throw new Error("Wrong operator");
+    }
+
+    get operator() {
+        return this.#operator;
+    }
+
+    get result() {
+        return this.#result;
+    }
+
+    set result(value) {
+        return (this.#result = value);
     }
 
     calculate() {
@@ -81,43 +94,22 @@ export class Processor {
         this.#counter = 0;
     }
 
-    set operator(id) {
-        if (id === null) {
-            return (this.#operator = null);
+    #setCalcMethod(operator, value) {
+        switch (operator) {
+            case "add":
+                return () => this.result + value;
+            case "subtract":
+                return () => this.result - value;
+            case "multiply":
+                return () => this.result * value;
+            case "divide":
+                return () => this.result / value;
+            case "square":
+                return () => Math.pow(this.input, 2);
+            case "root":
+                return () => Math.sqrt(this.input);
+            default:
+                return;
         }
-
-        if (this.input !== null) {
-            this.result = this.input;
-        }
-
-        if (Operations[id]) {
-            this.#operator = Operations[id];
-
-            return this.#operator;
-        }
-
-        throw new Error("Wrong operator");
-    }
-
-    get operator() {
-        return this.#operator;
-    }
-
-    get result() {
-        return this.#result;
-    }
-
-    set result(value) {
-        return (this.#result = value);
     }
 }
-
-const Operations = {
-    add: "add",
-    subtract: "subtract",
-    multiply: "multiply",
-    divide: "divide",
-    square: "square",
-    root: "root",
-    percent: "percent",
-};
