@@ -49,10 +49,11 @@ export class Device {
     }
 
     getResult(calculate) {
-        this.isOperationCompleted = true;
+        this.isOperationCompleted = false;
         this.calculator.input = this.output;
         calculate();
         this.displayResult();
+        this.shouldResetDisplay = true;
     }
 
     reset() {
